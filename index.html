@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Vote2016</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <!-- Montserrat Font from Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <!-- MyCSS -->
+  <link rel="stylesheet" href="stylesheet.css">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <!-- TO DO: GET RID OF MASONRY SHIT -->
+  <!-- Masonry package for dynamic grid layout -->
+  <!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.js"></script>-->
+  <!-- Custom Javascript for Vote Interface -->
+  <script src="vote.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <div class="title pull-left">
+        <span id="highlight"><b>&nbspVOTE&nbsp<br>&nbspBY&nbsp<br>&nbspTHE&nbsp<br>&nbspISSUES&nbsp</b></span>
+      </div>
+      <div class="description pull-right">
+        <p>An interactive page that shows you which candidates in the 2016 election represent you on the issues you care about.</p>
+      </div>
+    </div>
+  </div>
+  <div class="search">
+    <!-- Contains user-inputed candidate search -->
+    <div class="container">
+      <div class="issues">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="issues-prompt">
+              First, let's pick a few issues you really care about,
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="issue-search">
+              <input class="form-control input-lg" type="text" placeholder="or Search!" />
+            </div>
+          </div>
+        </div>
+        <div class="issues-menu collapse">
+          <!-- Menu to select issues -->
+          <div class="paddingless col-md-2 col-sm-3 col-xs-4">
+            <div class="issue" id="issue-0">
+              <div class="issue-icon"></div>
+              <div class="issue-name">Environment</div>
+            </div>
+          </div>
+          <div class="paddingless col-md-2 col-sm-3 col-xs-4">
+            <div class="issue" id="issue-1">
+              <div class="issue-icon"></div>
+              <div class="issue-name">Immigration</div>
+            </div>
+          </div>
+          <div class="paddingless col-md-2 col-sm-3 col-xs-4">
+            <div class="issue" id="issue-2">
+              <div class="issue-icon"></div>
+              <div class="issue-name">Civil Rights</div>
+            </div>
+          </div>
+          <div class="paddingless col-md-2 col-sm-3 col-xs-4">
+            <div class="issue" id="issue-3">
+              <div class="issue-icon"></div>
+              <div class="issue-name">Economy</div>
+            </div>
+          </div>
+          <div class="paddingless col-md-2 col-sm-3 col-xs-4">
+            <div class="issue" id="issue-4">
+              <div class="issue-icon"></div>
+              <div class="issue-name">Education</div>
+            </div>
+          </div>
+          <div class="paddingless col-md-2 col-sm-3 col-xs-4">
+            <div class="issue" id="issue-5">
+              <div class="issue-icon"></div>
+              <div class="issue-name">Health Care</div>
+            </div>
+          </div>
+        </div>
+        <div class="issues-footer">
+          <button type="button" class="btn btn-default" id="show-more">Show More Issues</button>
+          <div style="float:right">You selected...</div>
+        </div>
+      </div>
+      <!-- end issues -->
+
+      <div id="questions">
+        <h3>Now let's answer some questions about those issues.</h3>
+        <div id="question-list">
+
+          <!-- Question and information -->
+          <div class="question" id="question-0">
+            <div class="row">
+              <div class="col-sm-8">
+                <p>Should children of illegal immigrants be granted citizenship?</p>
+                <p>Currently, illegal immigrants are...</p>
+              </div>
+              <div class="col-sm-4">
+                <!-- Answer buttons -->
+                <div class="btn-group" role="group" aria-label="">
+                  <button type="button" class="btn btn-success btn-sm">Yes</button>
+                  <button type="button" class="btn btn-danger btn-sm">No</button>
+                  <button type="button" class="btn btn-info btn-sm">Skip</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- end questions -->
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end search -->
+
+  <div id="results">
+    <!-- Real-time updating candidate matches -->
+    <div class="container">
+      <h1>Candidates</h1>
+      <!-- Contains graph depicting match percentages for each candidate -->
+      <div id="match-graph">
+        <div class="candidate" id="candidate-0">
+          <div class="meter">
+            <div class="icon">
+              <img src="Bernie_Sanders_icon.png"/>
+            </div>
+            <div class="info-button">
+              more<br>info<br>+
+            </div>
+            <div class="wrapper">
+              <div class="bar">
+              </div>
+              <div class="name">
+                Bernie Sanders
+              </div>
+            </div>
+          </div>
+          <!-- Collapsible info section with dynamic journalism about candidate regarding user's positions -->
+          <div class="info">
+            <div class="content">
+              Bernie Sanders agrees with you on this, this and that. AngularJS stuff dynamic journalism, the works... He agrees with you most on the environment, especially concerning the question of clean water regulation, but disagrees with you most on issues regarding the economy, especially concerning the regulation of banks. 
+            </div>
+          </div>
+        </div>
+        <div class="candidate" id="candidate-1">
+          <div class="meter">
+            <div class="icon">
+              <img src="Ted_Cruz_icon.png"/>
+            </div>
+            <div class="info-button">
+              more<br>info<br>+
+            </div>
+            <div class="wrapper">
+              <div class="bar">
+              </div>
+              <div class="name">
+                Ted Cruz
+              </div>
+            </div>
+          </div>
+          <!-- Collapsible info section with dynamic journalism about candidate regarding user's positions -->
+          <div class="info">
+            <div class="content">
+              <p>Ted Cruz agrees with you on this, this and that. AngularJS stuff dynamic journalism, the works.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

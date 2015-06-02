@@ -1,0 +1,211 @@
+html { 
+}
+
+body {
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+}
+
+.form-control {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 3px solid #333333;
+  border-radius: 0;
+  outline: none;=
+}
+
+.jumbotron {
+  background-image: url('http://www.slate.com/content/dam/slate/blogs/weigel/2013/01/29/virginia_kills_off_electoral_college_bill_for_real_this_time/158957164.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg');
+  /* image courtesy of Slate */
+  background-size: cover;
+  height: 500px;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 4em;
+  margin-top: 40px;
+}
+
+#highlight {
+  background: rgba(255,255,255,0.8);
+  padding: 6px;
+}
+
+.description {
+  color: white;
+  margin-top: 130px;
+  width: 30%;
+}
+
+.description p {
+  font-size: 1.2em;
+}
+
+.search { 
+}
+
+.search .container {
+  float: left;
+  width: 60vw;
+}
+
+.issues {
+  height: auto;
+}
+
+.issues-prompt {
+  font-size: 14pt;
+  padding-top: 10px;
+}
+
+.issues-search {
+  display: inline-block;
+}
+
+.issues-menu {
+  background-color: whitesmoke;
+  display: block;
+  height: 125px;
+  margin-top: 20px;
+  overflow-y: hidden;
+}
+
+.expanded {
+  height: 100% !important;
+  overflow-y: scroll;
+}
+
+.issue {
+  cursor: pointer;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  min-width: 80px;
+  width: 100%;
+}
+
+.issue-icon {
+  background-color: darkgray;
+  height: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80px;
+  
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.issue-name {
+  font-size: 0.8em;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.issues-footer {
+  display: block;
+  height: auto;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  width: 100%;
+}
+
+.question {
+  background-color: whitesmoke;
+  margin-bottom: 10px;
+  padding: 15px;
+}
+
+.btn-group {
+  float: right;
+}
+
+#results {
+}
+
+#results .container {
+  background-color: whitesmoke;
+  display: inline-block;
+  height: 100vh;
+  left: 60vw;
+  overflow: scroll;
+  width: 40vw;
+}
+
+#match-graph {
+  height: 200px;
+}
+
+.candidate {
+}
+
+.meter {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.meter .icon {
+  float: left;
+  height: 80px;
+  overflow: hidden;
+  width: 80px;
+  
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.meter .icon img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.meter .info-button {
+  color: grey;
+  cursor: pointer;
+  float: right;
+  height: 80px;
+  width: 50px;
+  text-align: center;
+}
+
+.meter .wrapper {
+  height: 80px;
+  left: -5px;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.meter .wrapper .bar {
+  background-color: limegreen;
+  height: 10px;
+  min-width: 3%;
+  position: relative;
+  top: 45%;
+  width: 0%;
+}
+
+.meter .wrapper .name {
+  font-size: 1.2em;
+  margin-left: 10px;
+  position: relative;
+}
+
+.candidate .info {
+  background-color: #fafafa;
+  display: none;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.candidate .info .content {
+  border-left: 5px solid #333333;
+  margin-left: 15px;
+  margin-right: 65px;
+  padding-left: 15px;
+}
