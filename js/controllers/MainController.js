@@ -139,8 +139,8 @@ app.controller('MainController', [
       // add new_questions to display_questions at refresh_index
       $scope.updateRefresh_index();
       console.log( 'Refreshing Questions to display at ' + $scope.refresh_index );
-      $scope.display_questions = $scope.display_questions
-        .slice(0,$scope.refresh_index).concat(new_questions);
+      $scope.display_questions = $scope.display_questions.slice(0,$scope.refresh_index);
+      timer = $timeout( function() {$scope.display_questions = $scope.display_questions.concat(new_questions);}, 250 );
     };
 
     // compare function for sorting selected questiosn by relevancy
