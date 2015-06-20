@@ -2,6 +2,7 @@ html, body {
   background: #F4F4F4;
   font-family: 'Roboto', 'Helvetica', sans-serif;
   font-weight: 400;
+  min-width: 1024px;
 }
 
 .container {
@@ -69,7 +70,8 @@ button:focus {
 .landing {
   background-color: #F4F4F4;
   height: 100vh;
-  width: 100vw;
+  min-height: 600px;
+  width: 100%;
   position: relative;
 }
 
@@ -119,7 +121,7 @@ button:focus {
   left: 440px;
   top: 0;
   min-width: 260px;
-  width: 15vw;
+  width: 15%;
 }
 
 .landing .content .graphic #ballot-shadow {
@@ -136,10 +138,11 @@ button:focus {
 
 .main {
   height: 100vh;
+  min-height: 600px;
   left: 0;
   overflow: hidden;
   position: relative;
-  width: 140vw;
+  width: 135%;
   z-index: 10;
   
   -webkit-transition: left 0.25s;
@@ -151,20 +154,26 @@ button:focus {
 
 .main .tint {
   background-color: black;
-  height: 100vh;
-  left: 35vw;
+  height: 100%;
+/*  left: 35vw;*/
+  left: 25.925%;
   position: absolute;
   opacity: 0.8;
   top: 0;
-  width: 100vw;
+/*  width: 65%;*/
+  width: 48.148%;
   z-index: 101;
 }
 
 .main .message {
   height: 100%;
   position: absolute;
+/*
   left: 35vw;
   width: 65vw;
+*/
+  left: 25.952%;
+  width: 48.148%;
   z-index: 102;
 }
 
@@ -240,7 +249,8 @@ button:focus {
   height: 100%;
   float: left;
   position: relative;
-  width: 35vw;
+/*  width: 35vw;*/
+  width: 25.925%;
 }
 
 .issues .header {
@@ -400,7 +410,8 @@ button:focus {
   height: 100%;
   overflow-y: scroll;
   position: relative;
-  width: 65vw;
+/*  width: 65vw;*/
+  width: 48.148%;
 }
 
 .questions .header {
@@ -609,7 +620,8 @@ button:focus {
   height: 100%;
   overflow-y: scroll;
   position: relative;
-  width: 35vw;
+/*  width: 35vw;*/
+  width: 25.925%;
   z-index: 4;
   
   -webkit-box-shadow: -2px 0px 10px 1px rgba(0,0,0,0.25);

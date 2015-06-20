@@ -179,7 +179,7 @@ app.controller('MainController', [
     
     $scope.doneIssues = function() {
       var view = angular.element(document.getElementsByClassName('main'));
-      view.css('left', '-35vw');
+      view.css('left', '-35%');
       $scope.tinted = false;
       var cand = angular.element(document.getElementsByClassName('candidates'));
       cand.css('display', 'block');
