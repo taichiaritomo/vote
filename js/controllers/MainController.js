@@ -7,35 +7,55 @@ app.controller('MainController', [
     // issueID is index in scope.issues array
     $scope.issues = [
       {
+        "name": 'Race Relations',
+        "selected": false,
+        "questions": []
+      },
+      {
+        "name": 'Labor',
+        "selected": false,
+        "questions": []
+      },
+      {
+        "name": 'Income Distribution',
+        "selected": false,
+        "questions": []
+      },
+      {
+        "name": 'Foreign Affairs',
+        "selected": false,
+        "questions": []
+      },
+      {
         "name": 'Environment',
         "selected": false,
         "questions": [ 3, 5 ]        // array of questionID's that are related to issues
         // icon: imageurl
       },
       {
-        name: 'Immigration',
-        selected: false,
-        questions: [ 6, 7, 8 ]
+        "name": 'Immigration',
+        "selected": false,
+        "questions": [ 6, 7, 8 ]
       },
       {
-        name: 'Civil Rights',
-        selected: false,
-        questions: [ 0 ]
+        "name": 'Civil Rights',
+        "selected": false,
+        "questions": [ 0 ]
       },
       {
-        name: 'Economy',
-        selected: false,
-        questions: [ 1, 2, 3, 4 ]
+        "name": 'Economy',
+        "selected": false,
+        "questions": [ 1, 2, 3, 4 ]
       },
       {
-        name: 'Education',
-        selected: false,
-        questions: [ 1 ]
+        "name": 'Education',
+        "selected": false,
+        "questions": [ 1 ]
       },
       {
-        name: 'Health Care',
-        selected: false,
-        questions: []
+        "name": 'Health Care',
+        "selected": false,
+        "questions": []
       }
     ];
 
@@ -44,11 +64,13 @@ app.controller('MainController', [
       {
         completed: false,
         text: 'Should same-sex marriage be legalized across the country?',
+        description: 'While some argue that and that the rights, inside the Congress, while we stand on religious tolerance',
         relevancy: 1
       },
       {
         completed: false,
         text: 'Should taxes be raised for higher-paid Americans?',
+        description: 'Some research shows that increased regulation has not helped to curb banking practices. Others argue that the right kind of regulation is necessary and that',
         relevancy: 1
       },
       {
@@ -59,6 +81,7 @@ app.controller('MainController', [
       {
         completed: false,
         text: 'Should we invest in renewable energy projects at the expense of investing in nonrenewable energy projects?',
+        description: 'Many proponents of non-renewable energy projects argue that they create jobs while renewable energy projects, while good, can often take too long to develop useful solutions.',
         relevancy: 1
       },
       {
@@ -153,7 +176,8 @@ app.controller('MainController', [
         name: 'Bernie Sanders',
         pic: 'img/Bernie_Sanders_icon.png',
         positions: [5, 1, 5, 5, 0, 0, 0, 0, 0],
-        color: 'mediumslateblue'
+        color: 'mediumslateblue',
+        link: '<a href="berniesanders.com">www.berniesanders.com</a>'
       },
       {
         name: 'Hillary Clinton',
@@ -177,25 +201,22 @@ app.controller('MainController', [
     
     $scope.tinted = true;
     
-    $scope.doneIssues = function() {
-      var view = angular.element(document.getElementsByClassName('main'));
-      view.css('left', '-35%');
-      $scope.tinted = false;
-      var cand = angular.element(document.getElementsByClassName('candidates'));
-      cand.css('display', 'block');
-      timer = $timeout( function(){$scope.getQuestions();}, 300 );
-    }
-    
-    $scope.showIssues = function() {
-      var view = angular.element(document.getElementsByClassName('main'));
-      view.css('left', '0');
-      $scope.tinted = true;
-      var cand = angular.element(document.getElementsByClassName('candidates'));
-      timer = $timeout( function(){ cand.css('display', 'none'); }, 250 );
-    }
-    
     $scope.nudgeRight = false;
     $scope.nudgeLeft = false;
+    
+    $scope.topicsOn = false;
+    $scope.topicsButtonText = "TOPICS";
+    
+    $scope.toggleTopics = function() {
+      $scope.topicsOn = !$scope.topicsOn;
+      if ($scope.topicsOn) {
+        $scope.topicsButtonText = "Done";
+        document.getElementById("search").focus();
+      } else {
+        $scope.getQuestions();
+        timer = $timeout( function(){ $scope.topicsButtonText = "TOPICS"; }, 250 );
+      }
+    }
     
   }
 ]);

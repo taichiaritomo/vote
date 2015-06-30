@@ -8,11 +8,12 @@
        Question completed: {{question.completed }} <br>
        Question description:</p>
 -->
+    <p>{{ question.description }}</p>
     </div>
   </div>
   <div class="buttons">
     <div class="wrapper">
-      <div style="float: left; width: 35px;">
+      <div style="float: left; width: 20px;">
         <div class="bar yes" ng-class="{'extend':question.user_answer==5}" style="float: right"></div>
       </div>
       <button type="button" class="btn-answer yes" ng-class="{'selected':question.user_answer == 5, 'deselected':question.user_answer == 1}" ng-click="answer(yes)" aria-label="Yes">Yes</button>
@@ -21,7 +22,7 @@
       </div>
     </div>
     <div class="wrapper">
-      <div style="float: left; width: 90px;">
+      <div style="float: left; width: 75px;">
         <div class="bar no" ng-class="{'extend':question.user_answer==1}" style="float: right"></div>
       </div>
       <button type="button" class="btn-answer no" ng-class="{'selected':question.user_answer == 1, 'deselected':question.user_answer == 5}" ng-click="answer(no)" aria-label="No">No</button>
@@ -30,7 +31,7 @@
       </div>
     </div>
     <div class="wrapper">
-      <div style="float: right; width: 25px;">
+      <div style="float: right; width: 20px;">
         <div class="bar skip right" ng-class="{'extend':skipped}" style="float: left"></div>
       </div>
       <button type="button" class="btn-answer skip" ng-class="{'selected':skipped}" ng-click="skip()" aria-label="No">

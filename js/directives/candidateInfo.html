@@ -5,11 +5,13 @@
   <div class="btn-info" ng-init="expanded = false" ng-click="expanded = !expanded">
     <span class="btn-info-text">{{ expanded ? "- info" : "+ info" }}</span>
   </div>
-  <div class="wrapper">
+  <div class="middle">
     <div class="name">
       {{ info.name }}
     </div>
-    <div class="bar" ng-style="{'background-color': info.color}">
+    <div class="wrapper">
+      <div class="bar" ng-style="{'background-color': info.color}">
+      </div>
     </div>
   </div>
 </div>
@@ -18,4 +20,5 @@
   <div class="content">
     {{ info.name }} agrees with you on this, this and that. AngularJS stuff dynamic journalism, the works... He agrees with you most on the environment, especially concerning the question of clean water regulation, but disagrees with you most on issues regarding the economy, especially concerning the regulation of banks. 
   </div>
+  <div class="links" ng-bind-html="info.link | parseHTML"></div>
 </div>

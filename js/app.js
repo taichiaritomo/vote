@@ -9,4 +9,9 @@ var app = angular
             .constant('MATCH', {
               'NUMERATOR_INIT'   : 0,
               'DENOMINATOR_INIT' : 8
+            })
+            .filter('parseHTML', function($sce) {
+              return function(val) {
+                return $sce.trustAsHtml(val);
+              }
             });

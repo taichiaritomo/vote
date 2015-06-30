@@ -38,14 +38,6 @@ app.directive('questionInfo', ['ANSWERS', function(ANSWERS) {
         // skip animation
         var newWidth = (scope.skipped ? '0' : '100%');
         scope.skipped = !scope.skipped;
-        
-//        var queryResult = element[0].querySelector('.bar.skip.left');
-//        var wrappedQueryResult = angular.element(queryResult);
-//        wrappedQueryResult.css('width', newWidth);
-//        
-//        queryResult = element[0].querySelector('.bar.skip.right');
-//        wrappedQueryResult = angular.element(queryResult);
-//        wrappedQueryResult.css('width', newWidth);
       };
       
       scope.$watch(
@@ -74,19 +66,19 @@ app.directive('questionInfo', ['ANSWERS', function(ANSWERS) {
         }
       );
       
-      scope.highlighted = false;
-      
-      scope.highlight = function() {
-        var newWidth = (scope.highlighted ? '0' : '100%');
-        scope.highlighted = !scope.highlighted;
-        var queryResult = element[0].querySelector('.highlight-left-bar');
-        var wrappedQueryResult = angular.element(queryResult);
-        wrappedQueryResult.css('width', newWidth);
-        
-        queryResult = element[0].querySelector('.highlight-right-bar');
-        wrappedQueryResult = angular.element(queryResult);
-        wrappedQueryResult.css('width', newWidth);
-      }
+//      scope.highlighted = false;
+//      
+//      scope.highlight = function() {
+//        var newWidth = (scope.highlighted ? '0' : '100%');
+//        scope.highlighted = !scope.highlighted;
+//        var queryResult = element[0].querySelector('.highlight-left-bar');
+//        var wrappedQueryResult = angular.element(queryResult);
+//        wrappedQueryResult.css('width', newWidth);
+//        
+//        queryResult = element[0].querySelector('.highlight-right-bar');
+//        wrappedQueryResult = angular.element(queryResult);
+//        wrappedQueryResult.css('width', newWidth);
+//      }
       
     }
   }

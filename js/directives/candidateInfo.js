@@ -22,6 +22,8 @@ app.directive('candidateInfo', ['MATCH', function(MATCH) {
           wrappedQueryResult.css('width', (ratio*100).toString() + '%');
         }
       );
+      
+      scope.link = $sce.trustAsHtml(scope.info.link);
     }
   }
 }]);
