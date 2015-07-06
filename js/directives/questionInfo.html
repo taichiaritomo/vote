@@ -1,5 +1,5 @@
 <div class="question">
-  <div ng-class="{'skip-cover' : skipped}"></div>
+  <div ng-class="{'skip-cover' : top()=='S'}"></div>
   <div class="content">
     <div class="prompt">{{ question.text }}</div>
     <div class="info">
@@ -14,31 +14,33 @@
   <div class="buttons">
     <div class="wrapper">
       <div style="float: left; width: 20px;">
-        <div class="bar yes" ng-class="{'extend':question.user_answer==5}" style="float: right"></div>
+        <div class="bar yes" ng-class="{'extend':top()=='Y'}" style="float: right"></div>
       </div>
-      <button type="button" class="btn-answer yes" ng-class="{'selected':question.user_answer == 5, 'deselected':question.user_answer == 1}" ng-click="answer(yes)" aria-label="Yes">Yes</button>
+      <button type="button" class="btn-answer yes" ng-class="{'selected':top()=='Y', 'deselected':top()=='N'}" ng-click="answer('Y')" aria-label="Yes">Yes</button>
       <div style="overflow: hidden">
-        <div class="bar yes" ng-class="{'extend':question.user_answer==5}"></div>
+        <div class="bar yes" ng-class="{'extend':top()=='Y'}"></div>
       </div>
     </div>
+    
     <div class="wrapper">
       <div style="float: left; width: 75px;">
-        <div class="bar no" ng-class="{'extend':question.user_answer==1}" style="float: right"></div>
+        <div class="bar no" ng-class="{'extend':top()=='N'}" style="float: right"></div>
       </div>
-      <button type="button" class="btn-answer no" ng-class="{'selected':question.user_answer == 1, 'deselected':question.user_answer == 5}" ng-click="answer(no)" aria-label="No">No</button>
+      <button type="button" class="btn-answer no" ng-class="{'selected':top()=='N', 'deselected':top()=='Y'}" ng-click="answer('N')" aria-label="No">No</button>
       <div style="overflow: hidden">
-        <div class="bar no" ng-class="{'extend':question.user_answer==1}"></div>
+        <div class="bar no" ng-class="{'extend':top()=='N'}"></div>
       </div>
     </div>
+    
     <div class="wrapper">
       <div style="float: right; width: 20px;">
-        <div class="bar skip right" ng-class="{'extend':skipped}" style="float: left"></div>
+        <div class="bar skip right" ng-class="{'extend':top()=='S'}" style="float: left"></div>
       </div>
-      <button type="button" class="btn-answer skip" ng-class="{'selected':skipped}" ng-click="skip()" aria-label="No">
-        {{ (skipped ? "Unskip" : "Skip") }}
+      <button type="button" class="btn-answer skip" ng-class="{'selected':top()=='S'}" ng-click="skip()" aria-label="No">
+        {{ (top()=='S' ? "Unskip" : "Skip") }}
       </button>
       <div style="overflow: hidden">
-        <div class="bar skip left"  ng-class="{'extend':skipped}" style="float: right"></div>
+        <div class="bar skip left"  ng-class="{'extend':top()=='S'}" style="float: right"></div>
       </div>
     </div>
   </div>

@@ -21,106 +21,107 @@
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-beta.5/angular-animate.min.js"></script>
+    <!-- VelocityJS -->
+    <script src="js/shared/velocity.min.js"></script>
   </head>
   
   
-  <body ng-app="VoteApp">
+  <body ng-app="VoteApp" ng-controller="MainController">
+  
+  <div class="outer">
     
-    <div class="landing" id="landing">
+  <div class="landing">
+    <div class="graphic-container" id="graphic-container">
+      [DEMO] click or scroll to start. works in IE 9, mobile-responsive.
       <div class="graphic">
+        <div class="mask" ng-click="enterPage()"></div>
         <embed src="img/LANDING/ballot-box-front.svg" type="image/svg+xml" style="position: absolute; left: 0; bottom: 0; width: 100%; z-index: 4;"/>
         <embed src="img/LANDING/ballot-box-back.svg" type="image/svg+xml" style="position: absolute; left: 0; bottom: 0; width: 100%; z-index: 2;"/>
-        <div class="wrapper">
-          <embed id="ballot" src="img/LANDING/ballot.svg" type="image/svg+xml"/>
-        </div>
-        <div class="shadow"></div>
-<!--
-          <div id="description">
-            An interactive page that shows you which candidates in the 2016 U.S. election represent you on the issues that you really care about <br> <br> by Taichi Aritomo <br> & Alex Chong
-          </div>
---> 
+        <embed id="ballot" src="img/LANDING/ballot.svg" type="image/svg+xml"/>
       </div>
-    </div> <!-- end landing -->
+    </div>
+  </div> <!-- end landing -->
+
+  <div class="main">
     
-    <div class="main" ng-controller="MainController">
-      
-      <div class="right">
-        <div class="candidates">
-          <div class="header">CANDIDATES</div>
-          <div class="container">
-            <div ng-repeat="candidate in candidates" class="candidate">
-              <candidate-info info="candidate"></candidate-info>
-            </div>
+    <div class="flex topicbar">
+      <div class="topics-container">
+        <div class="topics">
+          <div style="left: 20px; line-height: 50px; position: absolute;">{{selectedIssues.length ? "" : "Select topics to highlight:"}}</div>
+          <div class="selector">
+            <form name="topics">
+              <div class="search">
+                  <input type="text" ng-model="search" id="search" name="search" placeholder="Search">
+              </div>
+              <div class="list">
+                <div class="issue" ng-repeat="issue in issues | filter:search" ng-init="issue.selected = false">
+                  <label style="cursor: pointer">
+                    <input type="checkbox" name="issue.name" ng-click="toggleIssue(issue)">
+                    <span unselectable="on" class="unselectable">{{ issue.name }}</span>
+                  </label><br/>
+                </div>
+              </div>
+              <div class="placeholder"></div>
+              <button type="button" class="btn" ng-class="{'done':topicsOn}" ng-click="toggleTopics()">
+                <div style="float: left">{{topicsButtonText}}</div>
+                <div class="triangle" ng-class="{'up':topicsOn}"></div>
+              </button>
+            </form>
           </div>
         </div>
       </div>
-      
-      <div class="left">
-        <div class="blanket" ng-class="{'disabled':!topicsOn}" ng-click="toggleTopics()"></div>
-        
-        <div class="column">
-          
-          <div class="topics" ng-class="{'stick':topicsStick}">
-            <div style="left: 20px; line-height: 50px; position: absolute;">{{selectedIssues.length ? "" : "Select topics to highlight:"}}</div>
-            <div class="selector" ng-class="{'expand':topicsOn}">
-              <form name="topics">
-                <div class="search">
-                    <input type="text" ng-model="search" id="search" name="search" placeholder="Search">
-                </div>
-                <div class="list">
-                  <div class="issue" ng-repeat="issue in issues | filter:search">
-                    <label style="cursor: pointer">
-                      <input type="checkbox" name="issue.name" ng-click="toggleIssue(issue)">
-                      <span unselectable="on" class="unselectable">{{ issue.name }}</span>
-                    </label><br/>
-                  </div>
-                </div>
-                <div style="height: 50px; position: relative; width: 100%;"></div>
-                <button type="button" class="btn" ng-class="{'done':topicsOn}" ng-click="toggleTopics()">
-                  <div style="float: left">{{topicsButtonText}}</div>
-                  <div class="triangle" ng-class="{'up':topicsOn}"></div>
-                </button>
-              </form>
-            </div>
-          </div>
-          
-          <div class="questions">
-            <div class="card" ng-repeat="questionID in display_questions">
-              <question-info index="questionID"></question-info>
-            </div>
-          </div>
+    </div>
+
+    <div class="flex questions">
+              
+      <div class="blanket" ng-click="toggleTopics()"></div>
+
+      <div class="column">
+
+        <div style="height: 80px;"></div>
+
+        <div ng-repeat="questionID in display_questions" class="card question-animation" >
+          <question-info index="questionID"></question-info>
         </div>
         
       </div>
-    </div> <!-- end left -->
+
+    </div> <!-- end questions -->
     
-    <!-- Modules -->
-    <script src="js/app.js"></script>
-    
-    <!-- Controllers -->
-    <script src="js/controllers/MainController.js"></script>
-    
-    <!-- Directives -->
-    <script src="js/directives/questionInfo.js"></script>
-    <script src="js/directives/candidateInfo.js"></script>
-    
-    <script>
-//      var ballot = document.getElementById('ballot');
-//      var description = document.getElementById('description');
-//      window.onscroll = function (e) {
-//        var vertical_position = 0;
-//        if (pageYOffset)//usual
-//          vertical_position = pageYOffset;
-//        else if (document.documentElement.clientHeight)//ie
-//          vertical_position = document.documentElement.scrollTop;
-//        else if (document.body)//ie quirks
-//          vertical_position = document.body.scrollTop;
-//        ballot.style.bottom = (0 - vertical_position/2.5) + 'px';
-////        description.style.opacity = 1 - (vertical_position/500);
-//        
-//        var landingH = document.getElementById('landing').offsetHeight;
-//      }
-    </script>
+    <div class="flex candidates">
+      <div class="column">
+        <div class="header">CANDIDATES</div>
+        <div class="container">
+          <div ng-repeat="candidate in candidates" class="candidate">
+            <candidate-info info="candidate"></candidate-info>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end candidates -->
+
+    <div class="flex footer-space click-through">
+    </div>
+
+    <div class="footer">
+      <div class="column">
+        <b>VOTE BY THE ISSUES</b><br>
+        by Taichi Aritomo & Alex Chong. <u>How it works</u>
+      </div>
+    </div>
+
+  </div> <!-- end main -->
+
+  </div> <!-- end outer -->
+
+  <!-- Modules -->
+  <script src="js/app.js"></script>
+
+  <!-- Controllers -->
+  <script src="js/controllers/MainController.js"></script>
+
+  <!-- Directives -->
+  <script src="js/directives/questionInfo.js"></script>
+  <script src="js/directives/candidateInfo.js"></script>
     
   </body>
   

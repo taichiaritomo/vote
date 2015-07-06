@@ -1,4 +1,4 @@
-app.directive('questionInfo', ['ANSWERS', function(ANSWERS) {
+app.directive('questionInfo', ['CONSTANTS', function(CONSTANTS) {
   return {
     restrict: 'E',
     scope: {
@@ -7,78 +7,68 @@ app.directive('questionInfo', ['ANSWERS', function(ANSWERS) {
     templateUrl: 'js/directives/questionInfo.html',
     link: function(scope, element, attrs) {
       
-      scope.yes  = ANSWERS.YES;
-      scope.no   = ANSWERS.NO;
-      scope.skip = ANSWERS.SKIP;
-      
+      // question selector
       scope.question             = scope.$parent.questions[scope.index];
-      scope.question.user_answer = ANSWERS.SKIP; // add new key to question
       
-      scope.answer = function(ans) {
-        if ( scope.question.user_answer != ans ) {
-          scope.question.user_answer = ans;
-          scope.question.completed = true;
-        } else if ( scope.question.user_answer == ans ) {
-          scope.question.user_answer = ANSWERS.SKIP;
-          scope.question.completed = false;
-          // unanswer question...
-        }
-      };
-      
-      scope.skipped = false;
-      
-      scope.skip = function() {
-        if (scope.question.user_answer != ANSWERS.SKIP) {
-          scope.question.user_answer = ANSWERS.SKIP;
+      // retrieve top of answer stack
+      scope.top = function() {
+        if (scope.question.stack.length > 0) {
+          return scope.question.stack[scope.question.stack.length - 1];
         } else {
-          // skip for the first time / unskip
-          scope.question.completed = !scope.question.completed;
+          return false;
         }
-        
-        // skip animation
-        var newWidth = (scope.skipped ? '0' : '100%');
-        scope.skipped = !scope.skipped;
-      };
+      }
       
-      scope.$watch(
-        function() { return scope.question.user_answer; },
-        function( new_ans, old_ans ) {
-          for (var i = 0; i < scope.$parent.candidates.length; i++) {
-            var cand_ans = scope.$parent.candidates[i]["positions"][scope.index];
-            if (cand_ans != 0) {
-              if (old_ans == 0 && new_ans != 0) {
-                scope.$parent.candidates[i]["match_numerator"] +=
-                  (scope.yes - 1) - Math.abs(cand_ans - new_ans);
-                scope.$parent.candidates[i]["match_denominator"] += scope.yes - 1;
-                console.log('new answer');
-              } else if (old_ans != 0 && new_ans != 0) {
-                scope.$parent.candidates[i]["match_numerator"] +=
-                  Math.abs(cand_ans - old_ans) - Math.abs(cand_ans - new_ans);
-                console.log('changed answer');
-              } else if (old_ans != 0 && new_ans == 0) {
-                scope.$parent.candidates[i]["match_numerator"] -=
-                  (scope.yes - 1) - Math.abs(cand_ans - old_ans);
-                scope.$parent.candidates[i]["match_denominator"] -= scope.yes - 1;
-                console.log('removed answer');
-              }
+      // function to update score (or ratio) for each candidates
+      scope.updateScore = function(answer, operator) {
+        if (!answer) {
+          return false;
+        }
+        for (var i = 0; i < scope.$parent.candidates.length; i++) {
+          var pointChange = 0;
+          if (answer == scope.question.candidatePositions[i].toUpperCase()) {
+            pointChange += CONSTANTS.POINT;
+            if (answer == scope.question.candidatePositions[i]) {
+              pointChange += scope.$parent.candidates[i].promisePoint;
             }
+            scope.$parent.candidates[i].ratio = operator(scope.$parent.candidates[i].ratio, pointChange);
           }
+        }
+      }
+      
+      // update candidate score ratios
+      scope.$watch(
+        function() { return scope.top(); },
+        function(new_ans, old_ans) {
+          if (old_ans != new_ans) {
+            scope.updateScore(old_ans, function(a, b) { return a - b; });
+          }
+          scope.updateScore(new_ans, function(a, b) { return a + b; });
         }
       );
       
-//      scope.highlighted = false;
-//      
-//      scope.highlight = function() {
-//        var newWidth = (scope.highlighted ? '0' : '100%');
-//        scope.highlighted = !scope.highlighted;
-//        var queryResult = element[0].querySelector('.highlight-left-bar');
-//        var wrappedQueryResult = angular.element(queryResult);
-//        wrappedQueryResult.css('width', newWidth);
-//        
-//        queryResult = element[0].querySelector('.highlight-right-bar');
-//        wrappedQueryResult = angular.element(queryResult);
-//        wrappedQueryResult.css('width', newWidth);
-//      }
+      /*=============================== UI ===============================*/
+      
+      // answer (ans) can be (Y)es, (N)o, or (S)kip
+      scope.answer = function(ans) {
+        if (!scope.top()) {
+          scope.question.stack.push(ans);
+        } else if (scope.top() == ans) {
+          scope.question.stack.pop();
+        } else if (scope.top() != ans) {
+          var old_ans = scope.question.stack.pop();
+          scope.question.stack.push(ans);
+        }
+      }
+      
+      // skip or unskip
+      scope.skip = function() {
+        if (scope.top() != 'S') { // not skipped yet
+          scope.question.stack.push('S');
+        } else {
+          scope.question.stack.pop();
+        }
+      }
       
     }
   }

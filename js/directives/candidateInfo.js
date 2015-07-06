@@ -1,4 +1,4 @@
-app.directive('candidateInfo', ['MATCH', function(MATCH) {
+app.directive('candidateInfo', ['CONSTANTS', function(CONSTANTS) {
   return {
     restrict: 'EA',
     scope: {
@@ -6,24 +6,31 @@ app.directive('candidateInfo', ['MATCH', function(MATCH) {
     },
     templateUrl: 'js/directives/candidateInfo.html',
     link: function(scope, element, attrs) {
-      scope.info["match_numerator"]   = MATCH.NUMERATOR_INIT;
-      scope.info["match_denominator"] = MATCH.DENOMINATOR_INIT;
-      // console.log( scope.$parent.candidates[0] );
       
-      scope.$watchGroup([
-        function() { return scope.info["match_numerator"]; },
-        function() { return scope.info["match_denominator"]; } ],
+      // default ratio
+      scope.info.ratio = CONSTANTS.RATIO_INIT;
+      
+      scope.getPromisePoint = function() {
+        scope.counter = 0;
+        for (var i = 0; i < scope.$parent.questions.length; i++) {
+          var candPos = scope.$parent.questions[i].candidatePositions;
+          if (candPos[scope.info.id] == 'N' || candPos[scope.info.id] == 'Y') {
+            scope.counter++;
+          }
+        }
+        return CONSTANTS.PROMISE_DIVIDEND / scope.counter;
+      }
+      
+      scope.info.promisePoint = scope.getPromisePoint();
+      
+      scope.$watch(
+        function() { return scope.info.ratio; },
         function() {
-          var ratio =
-            scope.info["match_numerator"] / scope.info["match_denominator"];
-          console.log( scope.info.name + ', ratio: ' + ratio );
           var queryResult = element[0].querySelector('.bar');
           var wrappedQueryResult = angular.element(queryResult);
-          wrappedQueryResult.css('width', (ratio*100).toString() + '%');
+          wrappedQueryResult.css('width', (scope.info.ratio*100).toString() + '%');
         }
       );
-      
-      scope.link = $sce.trustAsHtml(scope.info.link);
     }
   }
 }]);
